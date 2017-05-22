@@ -5,3 +5,6 @@ import:
   subpackages:
   - endpoint
   - transport/http
+- package: github.com/lib/pq
+- package: github.com/spf13/cobra
+- package: github.com/spf13/viper
