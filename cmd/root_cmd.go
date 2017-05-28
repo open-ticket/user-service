@@ -1,13 +1,11 @@
 package cmd
 
 import (
-	"../conf"
-	"database/sql"
 	"fmt"
+	"github.com/open-ticket/user-service/conf"
+	"github.com/open-ticket/user-service/server"
 	"github.com/spf13/cobra"
 	"log"
-
-	_ "github.com/lib/pq"
 )
 
 func RootCommand() *cobra.Command {
@@ -27,26 +25,7 @@ func run(cmd *cobra.Command, args []string) {
 		log.Fatal("Error loading config: " + err.Error())
 	}
 
-	dbConnInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=%s",
-		config.DB.Host,
-		config.DB.Port,
-		config.DB.User,
-		config.DB.Password,
-		config.DB.Database,
-		config.DB.SSLMode,
-	)
+	fmt.Println("Starting user-service...")
 
-	db, err := sql.Open("postgres", dbConnInfo)
-	if err != nil {
-		panic(err)
-	}
-
-	defer db.Close()
-
-	err = db.Ping()
-	if err != nil {
-		panic(err)
-	}
-
-	log.Println("Connected to PSQL database")
+	server.StartServer(config)
 }

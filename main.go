@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"./cmd"
+	"github.com/open-ticket/user-service/cmd"
 )
 
 func main() {
