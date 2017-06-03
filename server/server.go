@@ -2,10 +2,11 @@ package server
 
 import (
 	"fmt"
-	"github.com/open-ticket/user-service/conf"
-	database "github.com/open-ticket/user-service/db"
 	"log"
 	"net/http"
+
+	"github.com/open-ticket/user-service/conf"
+	database "github.com/open-ticket/user-service/db"
 )
 
 func StartServer(config *conf.Config) {
@@ -13,6 +14,14 @@ func StartServer(config *conf.Config) {
 
 	db := database.Connect(config)
 	defer db.Close()
+
+	svc := createUserService(db)
+	handlers := setupEndpoints(svc)
+	for _, handler := range handlers {
+		http.Handle(handler.path, handler.handler)
+	}
+
+	log.Println("Starting server")
 
 	log.Fatal(http.ListenAndServe(portString, nil))
 }

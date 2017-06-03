@@ -8,3 +8,8 @@ import:
 - package: github.com/lib/pq
 - package: github.com/spf13/cobra
 - package: github.com/spf13/viper
+- package: golang.org/x/crypto
+  subpackages:
+  - bcrypt
+- package: github.com/mattes/migrate
+  version: ^3.0.1
