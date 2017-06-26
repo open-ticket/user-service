@@ -1,7 +1,15 @@
-package: .
+package: github.com/open-ticket/user-service
 import:
 - package: github.com/go-kit/kit
   version: ~0.4.0
   subpackages:
   - endpoint
   - transport/http
+- package: github.com/lib/pq
+- package: github.com/spf13/cobra
+- package: github.com/spf13/viper
+- package: golang.org/x/crypto
+  subpackages:
+  - bcrypt
+- package: github.com/mattes/migrate
+  version: ^3.0.1
