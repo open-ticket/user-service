@@ -1,4 +1,7 @@
+/* eslint "class-methods-use-this": 0, "no-param-reassign": 0 */
+
 const Model = require("objection").Model;
+const bcrypt = require("bcrypt");
 
 module.exports = class User extends Model {
   static get tableName() {
@@ -7,6 +10,27 @@ module.exports = class User extends Model {
 
   $afterGet() {
     this.$omit("password");
+  }
+
+  $afterInsert() {
+    this.$afterGet();
+  }
+
+  $beforeInsert () {
+    // throw error if passwords don't match.
+    if (this.password) {
+      return bcrypt.hash(this.password, 10)
+        .then(hash => {
+          this.password = hash;
+          this.passwordConfirm = undefined;
+        });
+    }
+  }
+
+  $beforeValidate(jsonSchema, json) {
+    if (json.password !== json.passwordConfirm) {
+      throw new Model.ValidationError(`Passwords don't match!`);
+    }
   }
 
   static get jsonSchema() {

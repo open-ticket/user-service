@@ -1,5 +1,5 @@
 const Router = require("koa-router");
-const { getUser, getAllUsers } = require("./handlers");
+const { getAllUsers, createUser } = require("./handlers");
 
 /**
  * User service router middleware
@@ -9,8 +9,9 @@ const { getUser, getAllUsers } = require("./handlers");
 module.exports = (app) => {
   const router = new Router();
 
-  router.get("/:id/", getUser);
   router.get("/", getAllUsers);
+  router.post("/", createUser);
+  router.get("/validatePassword", ctx => { ctx.throw(500, "Not yet impletmented")});
   router.get(/.*/, ctx => { ctx.throw(404, "Not found")});
 
   app.use(router.routes())

@@ -7,9 +7,11 @@
   "author": "Matthew Bell <m.bell@cs.ucl.ac.uk>",
   "license": "GPL-3.0",
   "dependencies": {
+    "bcrypt": "^1.0.2",
     "dotenv": "^4.0.0",
     "knex": "^0.13.0",
     "koa": "^2.3.0",
+    "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.2.1",
     "objection": "^0.8.4",
     "pg": "^6.4.0"

@@ -34,6 +34,7 @@ const jsonify = async (ctx, next) => {
   try {
     await next();
   } catch (error) {
+    console.error(error.message);
     ctx.error = error.message;
   }
   ctx.body = jsonFormat(ctx);
