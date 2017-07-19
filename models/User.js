@@ -13,6 +13,12 @@ class User extends Model {
     return await bcrypt.compare(password, this.password);
   }
 
+  async updatePassword() {
+    const hash = await bcrypt.hash(this.password, 10);
+    this.password = hash;
+    this.passwordConfirm = undefined;
+  }
+
   $afterGet() {
     this.$omit("isDeleted");
   }
@@ -21,13 +27,18 @@ class User extends Model {
     this.$afterGet();
   }
 
+  $beforeUpdate(opt) {
+    if (opt.patch && this.password) {
+      return this.updatePassword();
+    }
+  }
+
   $beforeInsert () {
     // throw error if passwords don't match.
     if (this.password) {
       return bcrypt.hash(this.password, 10)
       .then(hash => {
         this.password = hash;
-        this.passwordConfirm = undefined;
       });
     }
   }
@@ -36,6 +47,7 @@ class User extends Model {
     if (json.password !== json.passwordConfirm) {
       throw new Model.ValidationError(`Passwords don't match!`);
     }
+    this.passwordConfirm = undefined;
   }
 
   static get jsonSchema() {

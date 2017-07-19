@@ -4,6 +4,7 @@ const {
   createUser,
   patchUser,
   deleteUser,
+  updatePassword,
   validatePassword
 } = require("./handlers");
 
@@ -20,6 +21,7 @@ module.exports = (app) => {
   router.patch("/", patchUser);
   router.delete("/", deleteUser);
   router.post("/validatePassword", validatePassword);
+  router.post("/updatePassword", updatePassword);
   router.get(/.*/, ctx => { ctx.throw(404, "Not found")});
 
   app.use(router.routes())
