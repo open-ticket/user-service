@@ -19,7 +19,9 @@
   "scripts": {
     "lint:staged": "lint-staged",
     "lint": "eslint ./ --cache --ignore-pattern .gitignore",
-    "start": "node server.js"
+    "start": "node server.js",
+    "start-dev": "nodemon",
+    "migrate": "knex migrate:latest"
   },
   "lint-staged": {
     "*.js": [
@@ -38,6 +40,7 @@
     "eslint-plugin-react": "^6.10.0",
     "husky": "^0.14.2",
     "lint-staged": "^4.0.0",
+    "nodemon": "^1.11.0",
     "prettier": "^1.5.2"
   }
 }

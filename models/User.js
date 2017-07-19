@@ -3,13 +3,18 @@
 const Model = require("objection").Model;
 const bcrypt = require("bcrypt");
 
-module.exports = class User extends Model {
+class User extends Model {
+
   static get tableName() {
     return "users";
   }
 
+  async checkPassword(password) {
+    return await bcrypt.compare(password, this.password);
+  }
+
   $afterGet() {
-    this.$omit("password");
+    this.$omit("isDeleted");
   }
 
   $afterInsert() {
@@ -20,10 +25,10 @@ module.exports = class User extends Model {
     // throw error if passwords don't match.
     if (this.password) {
       return bcrypt.hash(this.password, 10)
-        .then(hash => {
-          this.password = hash;
-          this.passwordConfirm = undefined;
-        });
+      .then(hash => {
+        this.password = hash;
+        this.passwordConfirm = undefined;
+      });
     }
   }
 
@@ -42,8 +47,12 @@ module.exports = class User extends Model {
         id: { type: "string"},
         name: { type: "string" },
         email: { type: "string" },
-        password: { type: "string" }
+        password: { type: "string" },
+        isDeleted: { type: "boolean", default: false }
       }
     };
   }
 };
+
+
+module.exports = User;
