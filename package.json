@@ -1,0 +1,47 @@
+{
+  "name": "user-service",
+  "version": "0.1.0",
+  "description": "Open ticket user accounts service",
+  "main": "server.js",
+  "repository": "git@github.com:open-ticket/user-service.git",
+  "author": "Matthew Bell <m.bell@cs.ucl.ac.uk>",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "bcrypt": "^1.0.2",
+    "dotenv": "^4.0.0",
+    "knex": "^0.13.0",
+    "koa": "^2.3.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.2.1",
+    "objection": "^0.8.4",
+    "pg": "^6.4.0"
+  },
+  "scripts": {
+    "lint:staged": "lint-staged",
+    "lint": "eslint ./ --cache --ignore-pattern .gitignore",
+    "start": "node server.js",
+    "start-dev": "nodemon",
+    "migrate": "knex migrate:latest"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-config-prettier": "^2.1.1",
+    "eslint-plugin-import": "^2.6.1",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.0",
+    "husky": "^0.14.2",
+    "lint-staged": "^4.0.0",
+    "mocha": "^3.4.2",
+    "nodemon": "^1.11.0",
+    "prettier": "^1.5.2"
+  }
+}
