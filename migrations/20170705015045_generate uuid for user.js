@@ -6,11 +6,10 @@ exports.up = function(knex) {
     .alterTable("users", table => {
       table.dropColumn("id");
     })
-    .then(() => {
-      return knex.schema.alterTable("users", table => {
+    .then(() => knex.schema.alterTable("users", table => {
         table.uuid("id").notNullable().primary().defaultTo(knex.raw("uuid_generate_v4()"));
       })
-    });
+    );
 };
 
 exports.down = function(knex) {

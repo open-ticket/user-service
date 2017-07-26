@@ -10,7 +10,7 @@ class User extends Model {
   }
 
   async checkPassword(password) {
-    return await bcrypt.compare(password, this.password);
+    return bcrypt.compare(password, this.password);
   }
 
   async updatePassword() {
@@ -31,6 +31,7 @@ class User extends Model {
     if (opt.patch && this.password) {
       return this.updatePassword();
     }
+    return Promise.resolve();
   }
 
   $beforeInsert () {
@@ -41,6 +42,7 @@ class User extends Model {
         this.password = hash;
       });
     }
+    return Promise.resolve();
   }
 
   $beforeValidate(jsonSchema, json) {

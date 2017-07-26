@@ -17,11 +17,11 @@ const timer = async (ctx, next) => {
  */
 const logger = async (ctx, next) => {
   await next();
-  console.log(`${ctx.method} ${ctx.url} : ${ctx.statusCode}`);
+  console.log(`${ctx.method} ${ctx.url} => ${ctx.status} "${ctx.message}"`);
 }
 
 const jsonFormat = ctx => JSON.stringify({
-  body: ctx.body,
+  content: ctx.body,
   error: ctx.error || ""
 });
 
