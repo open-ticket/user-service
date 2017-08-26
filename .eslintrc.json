@@ -14,9 +14,6 @@
   "globals": {
     "fetch": false
   },
-  "env": {
-    "jest": true
-  },
   "rules": {
     "comma-dangle": "off",
     "eqeqeq": [
@@ -41,7 +38,7 @@
     "react/prop-types": [
       1,
       {
-        "ignore": [ 
+        "ignore": [
           "navigator",
           "navigation",
           "style",

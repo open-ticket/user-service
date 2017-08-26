@@ -21,7 +21,8 @@
     "lint": "eslint ./ --cache --ignore-pattern .gitignore",
     "start": "node server.js",
     "start-dev": "nodemon",
-    "migrate": "knex migrate:latest"
+    "migrate": "knex migrate:latest",
+    "test": "yarn run lint && mocha test"
   },
   "lint-staged": {
     "*.js": [
@@ -31,6 +32,8 @@
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
+    "chai": "^4.1.0",
+    "chai-http": "^3.0.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-config-airbnb-base": "^11.2.0",
